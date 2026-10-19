@@ -104,8 +104,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 
 /* About */
 .about { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 40px; }
-.about-sub { font-size: 18px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--accent); margin-bottom: 12px; }
-.summary { margin: 0; padding-left: 18px; display: grid; gap: 10px; }
+.about-text { display: grid; gap: 14px; }
+.about-text p { font-size: 17px; }
 .facts { display: flex; flex-direction: column; margin: 0; }
 .facts div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
 .facts div:first-child { border-top: 1px solid var(--rule); }
@@ -119,20 +119,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .skill ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 15px; }
 .skill li::before { content: "– "; color: var(--accent); }
 
-/* Featured project card: media on the left, text on the right, facts strip along the foot */
-.sheets { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
-.sheet { background: var(--sheet); border: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); min-width: 0; }
-.sheet-media { padding: 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.sheet-body { display: flex; flex-direction: column; min-width: 0; border-left: 1px solid var(--rule); }
+/* Featured project cards sit side by side: title, media, summary, key facts, case study, facts strip */
+.sheets { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 24px; align-items: stretch; }
+.sheets:has(.case[open]) { align-items: start; }
+.sheet { background: var(--sheet); border: 1px solid var(--line); display: flex; flex-direction: column; min-width: 0; }
 .sheet-top { padding: 20px 20px 4px; }
 .sheet h3 { font-size: 24px; text-transform: uppercase; letter-spacing: 0.01em; padding: 4px 20px 0; }
-.shot { margin: 0; aspect-ratio: 16 / 9; max-width: 100%; border: 1px solid var(--rule); background: var(--paper); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.shot.has-img { aspect-ratio: auto; background: #fff; cursor: zoom-in; }
-.shot.has-img img { height: auto; object-fit: contain; }
-.shot.has-img:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.shot.empty { border-style: dashed; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); text-align: center; padding: 12px; }
-.cap { padding: 0; }
+.sheet-media { padding: 16px 20px 0; min-width: 0; }
 .sheet .sum { padding: 16px 20px 0; color: var(--ink-soft); }
 .results { list-style: none; margin: 16px 20px 0; padding: 0; display: grid; gap: 8px; }
 .results li { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 12px; align-items: baseline; font-size: 15px; }
@@ -144,10 +137,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .case summary::-webkit-details-marker { display: none; }
 .case summary::after { content: "+"; }
 .case[open] summary::after { content: "–"; }
-.case-body { padding: 0 20px 18px; display: grid; gap: 12px; }
+.case-body { padding: 0 20px 18px; display: grid; gap: 14px; }
 .case-body h4 { margin: 0 0 2px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; }
 .case-body p { font-size: 15px; }
-.foot { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.foot { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
 .foot > div { padding: 8px 12px; border-right: 1px solid var(--rule); min-width: 0; }
 .foot > div:last-child { border-right: 0; }
 .foot .val { font-family: var(--font-mono); font-size: 12px; margin-top: 1px; overflow-wrap: anywhere; }
@@ -251,9 +244,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   .foot > div:nth-child(3) { grid-column: 1 / -1; border-right: 0; }
   .gears { right: -110px; top: -10px; width: 300px; opacity: 0.4; }
   .wrap { gap: 56px; }
-  .sheet { grid-template-columns: minmax(0, 1fr); }
-  .sheet-body { border-left: 0; border-top: 1px solid var(--rule); }
-  .sheet-media { padding: 16px; }
   .mini-body { grid-template-columns: minmax(0, 1fr); gap: 20px; }
 }
 @media (max-width: 520px) {
@@ -303,14 +293,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   <section id="about" aria-labelledby="about-h">
     <div class="sec-head"><h2 id="about-h">About</h2></div>
     <div class="about">
-      <div>
-        <h3 class="about-sub">Summary of qualifications</h3>
-        <ul class="summary">
-          <li>Mechanical Engineering student with hands-on project experience in 3D CAD modeling, technical drafting, prototyping, and mechanical design.</li>
-          <li>Proficient in developing SolidWorks models, assemblies, and engineering drawings to support prototype fabrication and testing.</li>
-          <li>Applied engineering principles, including gear mechanics, torque transmission, and structural evaluation, to solve design challenges under manufacturing and dimensional constraints.</li>
-          <li>Experienced in collaborating on team-based engineering projects, performing iterative testing, and integrating mechanical and electrical components into functional prototypes.</li>
-        </ul>
+      <div class="about-text">
+        <p>I'm a third-year mechanical engineering student at Toronto Metropolitan University who's always been fascinated by how things work mechanically and physically. For me, the best part of engineering is taking an idea from a CAD screen and turning it into a real, functioning prototype, whether that's designing gear trains for a wind-up vehicle or tinkering with Arduino projects. I enjoy tackling challenges that combine practical design, manufacturing constraints, and hands-on fabrication.</p>
+        <p>I am currently looking for internships and co-op opportunities where I can apply my skills in SolidWorks, hands-on prototyping, and design validation to real-world engineering projects.</p>
       </div>
       <dl class="facts">
         <div><dt>Program</dt><dd>B.Eng. Mechanical Eng.</dd></div>
@@ -384,15 +369,36 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 var RESUME_URL = "";
 var DRIVE_URL = "";
 
-/* EDIT HERE: featured projects. One card each. Add "img" (a file path) to fill the image slot. */
+/* EDIT HERE: featured projects, shown side by side. One card each.
+   "media" is the carousel: a list of { type: "image", src, alt, cap }. "facts" fills the strip along the foot. */
 var PROJECTS = [
   { type: "Manufacturing Fundamentals Design Project", title: "Gear-Driven Autonomous Wind-Up Car",
     sum: "A fully functional mechanical prototype built by a team of seven, taken from concept to competition under material and dimensional limits.",
-    img: "car-assembly.png", imgAlt: "Assembly drawing of the wind-up car with four views, a parts list and dimensions", cap: "Assembly drawing from the team's CAD package. Click to enlarge.",
-    problem: "Deliver a gear-driven car that runs on a wind-up spring, with design integration, manufacturing constraints and iterative testing handled inside a structured design process.",
-    approach: "I worked through the calculations for gear geometry, torque transmission, drive force and travel distance to validate a 3:1 cycloid gear reduction. I then produced a SolidWorks drawing package with assembly and detail drawings plus motion simulation, and fabricated and tested a laser-cut acrylic prototype through several iterations.",
-    results: [["3:1", "cycloid gear reduction validated by calculation"], ["7", "people on the cross-functional team"], ["Acrylic", "laser-cut prototype, tested iteratively"]],
-    stack: ["SolidWorks", "Motion simulation", "Laser cutting", "Gear design"], role: "Team member", date: "Jan – Apr 2026", kind: "Course project" }
+    media: [
+      { type: "image", src: "car-assembly.png", alt: "Assembly drawing of the wind-up car with four views, a parts list and dimensions", cap: "Assembly drawing from the team's CAD package" }
+    ],
+    stack: ["SolidWorks", "Motion simulation", "Laser cutting", "Gear design"],
+    caseStudy: [
+      ["Problem", "Deliver a gear-driven car that runs on a wind-up spring, with design integration, manufacturing constraints and iterative testing handled inside a structured design process."],
+      ["What I did", "I worked through the calculations for gear geometry, torque transmission, drive force and travel distance to validate a 3:1 cycloid gear reduction. I then produced a SolidWorks drawing package with assembly and detail drawings plus motion simulation, and fabricated and tested a laser-cut acrylic prototype through several iterations."]
+    ],
+    facts: [["Role", "Team member"], ["Date", "Jan – Apr 2026"], ["Type", "Course project"]] },
+  { type: "Introduction to Engineering Design Project", title: "Mobile Modular Sales Unit",
+    sum: "A towable, non-motorized cargo unit that lets small business owners store, carry and sell goods behind a bicycle or tricycle. Designed for an NGO initiative that promotes local trade. As much a research project as a design project: we studied how engineers weigh constraints to justify each design choice.",
+    media: [
+      { type: "image", src: "mobile-unit-render.jpg", alt: "SolidWorks render of the Mobile Modular Sales Unit: an insulated box with a split lid, a curved tow-bar and two spoked wheels", cap: "SolidWorks render" },
+      { type: "image", src: "mobile-unit-drawing.jpg", alt: "Final assembly drawing of the Mobile Modular Sales Unit with side, front and top views and a coloured isometric view", cap: "Final assembly drawing, scale 1:25" }
+    ],
+    stack: ["SolidWorks", "DFM", "Ergonomics", "Sustainable engineering", "Risk and safety analysis"],
+    caseStudy: [
+      ["Research and constraints", "Much of this project was research: we studied how engineers make design choices under real constraints, then applied that reasoning to the unit. Each decision below follows from a constraint such as weight, rider effort, safety, cost or sustainability."],
+      ["Hitch and enclosure", "A curved tow-bar attaches to standard bicycle seat posts or frame mounts with minimal modification. A durable latch system and an angled lid opening keep the contents secure and weatherproof."],
+      ["Weight and towing", "Heavy loads strain riders and make turning and braking less stable. We optimized the tow-bar curvature and placed the centre of gravity over the main axle to keep tongue weight on the lead bicycle low."],
+      ["Versatility", "Small businesses need very different things, from farm deliveries to mobile tool sharpening. A modular frame lattice and a split interior layout allow quick hardware reconfiguration."],
+      ["Human factors", "Opening heights, latches and loading angles were modelled for low physical and cognitive effort across ages and abilities. Pneumatic spoked wheels and off-centre weight distribution suit paved city roads and unpaved rural tracks."],
+      ["Safety and environment", "A high-visibility reflective rear strip helps in low light, and robust latches prevent spills in transit. The design uses recyclable materials, and a fully sealed compartment contains odours and reduces noise."]
+    ],
+    facts: [["Role", "Co-lead, mechanical design and CAD"], ["Date", "Sep – Dec 2025"], ["Group", "1704"]] }
 ];
 
 /* EDIT HERE: Arduino projects. Each is a row that opens on click.
@@ -475,53 +481,36 @@ function gearSvg(cx, cy, n, pr, phase, cls) {
 var sheets = document.getElementById("sheets");
 PROJECTS.forEach(function (p) {
   var s = el("article", "sheet");
-  var media = el("div", "sheet-media");
-  var shot = el("figure", "shot");
-  if (p.img) {
-    shot.className = "shot has-img";
-    shot.tabIndex = 0;
-    shot.setAttribute("role", "button");
-    shot.setAttribute("aria-label", "Enlarge image: " + p.title);
-    var im = el("img"); im.src = p.img; im.alt = p.imgAlt || p.title; shot.appendChild(im);
-    var openImg = function () { openViewer([{ src: p.img, alt: im.alt, cap: p.cap }], 0, p.title); };
-    shot.addEventListener("click", openImg);
-    shot.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openImg(); } });
-  } else {
-    shot.className = "shot empty";
-    shot.textContent = "Image coming soon";
-  }
-  media.appendChild(shot);
-  if (p.img && p.cap) media.appendChild(el("p", "cap label", p.cap));
-  s.appendChild(media);
-
-  var body = el("div", "sheet-body");
   var top = el("div", "sheet-top");
   top.appendChild(el("span", "label", p.type));
-  body.appendChild(top);
-  body.appendChild(el("h3", null, p.title));
-  body.appendChild(el("p", "sum", p.sum));
-  var ul = el("ul", "results");
-  p.results.forEach(function (r) { var li = el("li"); li.appendChild(el("b", null, r[0])); li.appendChild(el("span", null, r[1])); ul.appendChild(li); });
-  body.appendChild(ul);
+  s.appendChild(top);
+  s.appendChild(el("h3", null, p.title));
+  var mediaBox = el("div", "sheet-media");
+  var car = buildCarousel(p);
+  mediaBox.appendChild(car.root);
+  s.appendChild(mediaBox);
+  s.appendChild(el("p", "sum", p.sum));
+  if (p.results) {
+    var ul = el("ul", "results");
+    p.results.forEach(function (r) { var li = el("li"); li.appendChild(el("b", null, r[0])); li.appendChild(el("span", null, r[1])); ul.appendChild(li); });
+    s.appendChild(ul);
+  }
   var st = el("div", "stack");
   p.stack.forEach(function (t) { st.appendChild(el("span", null, t)); });
-  body.appendChild(st);
+  s.appendChild(st);
   var d = el("details", "case");
   d.appendChild(el("summary", null, "Case study"));
   var cb = el("div", "case-body");
-  [["Problem", p.problem], ["What I did", p.approach]].forEach(function (x) {
+  p.caseStudy.forEach(function (x) {
     var g = el("div"); g.appendChild(el("h4", null, x[0])); g.appendChild(el("p", null, x[1])); cb.appendChild(g);
   });
   d.appendChild(cb);
-  body.appendChild(d);
-  s.appendChild(body);
-
+  s.appendChild(d);
   var foot = el("div", "foot");
-  foot.appendChild(cell("Role", p.role));
-  foot.appendChild(cell("Date", p.date));
-  foot.appendChild(cell("Type", p.kind));
+  p.facts.forEach(function (f) { foot.appendChild(cell(f[0], f[1])); });
   s.appendChild(foot);
   sheets.appendChild(s);
+  car.sync();
 });
 
 /* Carousel: swipe or scroll sideways, or use the arrows and dots. Images open large on click. */
